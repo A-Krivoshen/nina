@@ -3,15 +3,25 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#0b0f19" />
   <title>Галерея Нины</title>
   <meta name="description" content="Онлайн-галерея работ Нины" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
   <header class="top">
-    <div class="wrap">
-      <h1 class="title">Галерея Нины</h1>
-      <p class="subtitle">Нажми на картинку — откроется просмотр. ← → листают, Esc закрывает.</p>
+    <div class="wrap top__inner">
+      <div>
+        <div class="badge">online gallery</div>
+        <h1 class="title">Галерея Нины</h1>
+        <p class="subtitle">Клик — просмотр. ← → листают, Esc закрывает. Колесо мыши — зум.</p>
+      </div>
+      <div class="top__stats">
+        <div class="stat">
+          <div class="stat__label">Работ</div>
+          <div id="count" class="stat__value">—</div>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -28,18 +38,26 @@
       <button class="viewer__btn viewer__btn--close" type="button" aria-label="Закрыть" data-close="1">×</button>
 
       <button class="viewer__btn viewer__btn--prev" type="button" aria-label="Назад" data-nav="prev">‹</button>
-      <img id="viewerImg" class="viewer__img" alt="" />
+
+      <div class="viewer__stage">
+        <img id="viewerImg" class="viewer__img" alt="" />
+      </div>
+
       <button class="viewer__btn viewer__btn--next" type="button" aria-label="Вперёд" data-nav="next">›</button>
 
       <div class="viewer__meta">
-        <div id="viewerCaption" class="viewer__caption"></div>
+        <div class="viewer__caption">
+          <span id="viewerCount" class="viewer__count"></span>
+          <span id="viewerCaption"></span>
+        </div>
+        <div class="viewer__hint">Свайпни влево/вправо на мобиле • Двойной клик — зум</div>
       </div>
     </div>
   </div>
 
   <footer class="foot">
     <div class="wrap">
-      <span>© Нина. Онлайн-галерея на GitHub Pages.</span>
+      <span>© Нина. Галерея на GitHub Pages.</span>
     </div>
   </footer>
 

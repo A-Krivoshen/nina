@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Галерея Нины</title>
+  <meta name="description" content="Онлайн-галерея работ Нины" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="top">
+    <div class="wrap">
+      <h1 class="title">Галерея Нины</h1>
+      <p class="subtitle">Нажми на картинку — откроется просмотр. ← → листают, Esc закрывает.</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div id="status" class="status">Загружаю…</div>
+    <div id="grid" class="grid" hidden></div>
+  </main>
+
+  <!-- Viewer -->
+  <div id="viewer" class="viewer" aria-hidden="true">
+    <div class="viewer__backdrop" data-close="1"></div>
+
+    <div class="viewer__box" role="dialog" aria-modal="true" aria-label="Просмотр изображения">
+      <button class="viewer__btn viewer__btn--close" type="button" aria-label="Закрыть" data-close="1">×</button>
+
+      <button class="viewer__btn viewer__btn--prev" type="button" aria-label="Назад" data-nav="prev">‹</button>
+      <img id="viewerImg" class="viewer__img" alt="" />
+      <button class="viewer__btn viewer__btn--next" type="button" aria-label="Вперёд" data-nav="next">›</button>
+
+      <div class="viewer__meta">
+        <div id="viewerCaption" class="viewer__caption"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="foot">
+    <div class="wrap">
+      <span>© Нина. Онлайн-галерея на GitHub Pages.</span>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

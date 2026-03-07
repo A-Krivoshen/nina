@@ -14,7 +14,7 @@
       <div>
         <div class="badge">online gallery</div>
         <h1 class="title">Галерея Нины</h1>
-        <p class="subtitle">Клик — просмотр. ← → листают, Esc закрывает. Колесо мыши — зум.</p>
+        <p class="subtitle">Поиск и сортировка для быстрого выбора. Клик — просмотр. ← → листают, Esc закрывает.</p>
       </div>
       <div class="top__stats">
         <div class="stat">
@@ -26,6 +26,26 @@
   </header>
 
   <main class="wrap">
+    <section class="tools" aria-label="Инструменты галереи">
+      <label class="tools__group">
+        <span class="tools__label">Поиск</span>
+        <input id="searchInput" class="tools__input" type="search" placeholder="Например: 20240128 или 1540" autocomplete="off" />
+      </label>
+
+      <label class="tools__group">
+        <span class="tools__label">Сортировка</span>
+        <select id="sortSelect" class="tools__select">
+          <option value="new">Сначала новые</option>
+          <option value="old">Сначала старые</option>
+          <option value="name-asc">Имя A → Я</option>
+          <option value="name-desc">Имя Я → A</option>
+        </select>
+      </label>
+
+      <button id="clearBtn" class="tools__clear" type="button">Сбросить</button>
+      <div id="resultsInfo" class="tools__info" aria-live="polite"></div>
+    </section>
+
     <div id="status" class="status">Загружаю…</div>
     <div id="grid" class="grid" hidden></div>
   </main>
@@ -35,6 +55,13 @@
     <div class="viewer__backdrop" data-close="1"></div>
 
     <div class="viewer__box" role="dialog" aria-modal="true" aria-label="Просмотр изображения">
+      <div class="viewer__controls" aria-label="Управление просмотром">
+        <button id="zoomOutBtn" class="viewer__btn viewer__btn--tool" type="button" aria-label="Уменьшить" data-action="zoom-out">−</button>
+        <button id="zoomResetBtn" class="viewer__btn viewer__btn--tool" type="button" aria-label="Сбросить масштаб" data-action="zoom-reset">100%</button>
+        <button id="zoomInBtn" class="viewer__btn viewer__btn--tool" type="button" aria-label="Увеличить" data-action="zoom-in">+</button>
+        <button id="fullscreenBtn" class="viewer__btn viewer__btn--tool" type="button" aria-label="Полноэкранный режим" data-action="fullscreen" aria-pressed="false">⤢</button>
+      </div>
+
       <button class="viewer__btn viewer__btn--close" type="button" aria-label="Закрыть" data-close="1">×</button>
 
       <button class="viewer__btn viewer__btn--prev" type="button" aria-label="Назад" data-nav="prev">‹</button>
@@ -48,9 +75,10 @@
       <div class="viewer__meta">
         <div class="viewer__caption">
           <span id="viewerCount" class="viewer__count"></span>
+          <span id="viewerDate" class="viewer__date"></span>
           <span id="viewerCaption"></span>
         </div>
-        <div class="viewer__hint">Свайпни влево/вправо на мобиле • Двойной клик — зум</div>
+        <div class="viewer__hint">Свайп влево/вправо • Двойной клик или колесо — зум • F — fullscreen</div>
       </div>
     </div>
   </div>

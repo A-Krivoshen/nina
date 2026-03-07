@@ -258,8 +258,12 @@ body{
   overflow:hidden;
   border-radius: 14px;
   border: 1px solid rgba(255,255,255,.10);
-  background: rgba(0,0,0,.18);
+  background: radial-gradient(circle at 50% 35%, rgba(255,255,255,.08), rgba(0,0,0,.35));
   touch-action: pan-y; /* для свайпа/скролла */
+}
+
+.viewer__stage.is-zoomed{
+  cursor: zoom-out;
 }
 
 .viewer__img{
@@ -268,6 +272,8 @@ body{
   border-radius: 12px;
   transform-origin: center center;
   will-change: transform;
+  transition: transform .18s ease;
+  filter: drop-shadow(0 10px 28px rgba(0,0,0,.42));
   user-select:none;
   -webkit-user-drag:none;
 }
@@ -291,6 +297,30 @@ body{
 .viewer__btn:hover{
   border-color: rgba(255,255,255,.26);
   background: rgba(0,0,0,.45);
+}
+
+.viewer__controls{
+  position:absolute;
+  top: 14px;
+  left: 14px;
+  display:flex;
+  gap: 8px;
+  z-index: 2;
+}
+
+.viewer__btn--tool{
+  width: 40px;
+  height: 40px;
+  font-size: 22px;
+  border-radius: 12px;
+}
+
+#zoomResetBtn{
+  width: auto;
+  min-width: 70px;
+  padding: 0 10px;
+  font-size: 13px;
+  font-weight: 600;
 }
 
 .viewer__btn--close{
@@ -356,6 +386,20 @@ body{
     grid-template-columns: 44px 1fr 44px;
     padding: 12px;
   }
+  .viewer__controls{
+    top: 10px;
+    left: 10px;
+    gap: 6px;
+  }
+
+  .viewer__btn--tool{
+    width: 36px;
+    height: 36px;
+    font-size: 19px;
+  }
+
+  #zoomResetBtn{ min-width: 62px; }
+
   .viewer__img{ max-height: calc(100vh - 210px); }
 }
 

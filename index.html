@@ -55,6 +55,13 @@
     <div class="viewer__backdrop" data-close="1"></div>
 
     <div class="viewer__box" role="dialog" aria-modal="true" aria-label="Просмотр изображения">
+      <div class="viewer__controls" aria-label="Управление просмотром">
+        <button id="zoomOutBtn" class="viewer__btn viewer__btn--tool" type="button" aria-label="Уменьшить" data-action="zoom-out">−</button>
+        <button id="zoomResetBtn" class="viewer__btn viewer__btn--tool" type="button" aria-label="Сбросить масштаб" data-action="zoom-reset">100%</button>
+        <button id="zoomInBtn" class="viewer__btn viewer__btn--tool" type="button" aria-label="Увеличить" data-action="zoom-in">+</button>
+        <button id="fullscreenBtn" class="viewer__btn viewer__btn--tool" type="button" aria-label="Полноэкранный режим" data-action="fullscreen" aria-pressed="false">⤢</button>
+      </div>
+
       <button class="viewer__btn viewer__btn--close" type="button" aria-label="Закрыть" data-close="1">×</button>
 
       <button class="viewer__btn viewer__btn--prev" type="button" aria-label="Назад" data-nav="prev">‹</button>
@@ -71,7 +78,7 @@
           <span id="viewerDate" class="viewer__date"></span>
           <span id="viewerCaption"></span>
         </div>
-        <div class="viewer__hint">Свайпни влево/вправо на мобиле • Двойной клик — зум</div>
+        <div class="viewer__hint">Свайп влево/вправо • Двойной клик или колесо — зум • F — fullscreen</div>
       </div>
     </div>
   </div>

@@ -14,6 +14,8 @@
   const viewerCount = document.getElementById('viewerCount');
   const viewerDate = document.getElementById('viewerDate');
   const stage = document.querySelector('.viewer__stage');
+  const zoomResetBtn = document.getElementById('zoomResetBtn');
+  const fullscreenBtn = document.getElementById('fullscreenBtn');
 
   let allItems = [];
   let items = [];
@@ -47,6 +49,8 @@
     scale = Math.max(SCALE_MIN, Math.min(SCALE_MAX, val));
     viewerImg.style.transform = `scale(${scale})`;
     viewerImg.style.cursor = scale > 1 ? 'zoom-out' : 'zoom-in';
+    stage?.classList.toggle('is-zoomed', scale > 1);
+    if (zoomResetBtn) zoomResetBtn.textContent = `${Math.round(scale * 100)}%`;
   };
 
   const resetZoom = () => setZoom(1);
@@ -55,6 +59,28 @@
     if (current < 0) return;
     viewerCount.textContent = `${current + 1} / ${items.length}`;
     viewerDate.textContent = items[current].date;
+  };
+
+  const syncFullscreenUi = () => {
+    const inFs = Boolean(document.fullscreenElement);
+    if (fullscreenBtn) {
+      fullscreenBtn.setAttribute('aria-pressed', inFs ? 'true' : 'false');
+      fullscreenBtn.textContent = inFs ? '⤡' : '⤢';
+      fullscreenBtn.setAttribute('aria-label', inFs ? 'Выйти из полноэкранного' : 'Полноэкранный режим');
+    }
+  };
+
+  const toggleFullscreen = async () => {
+    try {
+      if (!document.fullscreenElement) {
+        await viewer.requestFullscreen?.();
+      } else {
+        await document.exitFullscreen?.();
+      }
+      syncFullscreenUi();
+    } catch {
+      // ignore fullscreen API failures in unsupported environments
+    }
   };
 
   const openViewer = (index) => {
@@ -82,12 +108,16 @@
   };
 
   const closeViewer = () => {
+    if (document.fullscreenElement) {
+      document.exitFullscreen?.().catch(() => {});
+    }
     viewer.classList.remove('is-open');
     viewer.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
     viewerImg.src = '';
     current = -1;
     resetZoom();
+    syncFullscreenUi();
   };
 
   const nav = (dir) => {
@@ -182,8 +212,13 @@
   viewer.addEventListener('click', (e) => {
     const close = e.target?.dataset?.close;
     const navDir = e.target?.dataset?.nav;
+    const action = e.target?.dataset?.action;
     if (close) closeViewer();
     if (navDir) nav(navDir);
+    if (action === 'zoom-in') setZoom(scale + 0.2);
+    if (action === 'zoom-out') setZoom(scale - 0.2);
+    if (action === 'zoom-reset') resetZoom();
+    if (action === 'fullscreen') toggleFullscreen();
   });
 
   // keys
@@ -193,6 +228,9 @@
     if (e.key === 'ArrowRight') nav('next');
     if (e.key === 'ArrowLeft') nav('prev');
     if (e.key === '0') resetZoom();
+    if (e.key === '+' || e.key === '=') setZoom(scale + 0.15);
+    if (e.key === '-' || e.key === '_') setZoom(scale - 0.15);
+    if (e.key.toLowerCase() === 'f') toggleFullscreen();
   });
 
   // wheel zoom (desktop)
@@ -236,6 +274,8 @@
     if (dx > 60) nav('prev');
     else if (dx < -60) nav('next');
   }, { passive: true });
+
+  document.addEventListener('fullscreenchange', syncFullscreenUi);
 
   searchInput?.addEventListener('input', applyFilters);
   sortSelect?.addEventListener('change', applyFilters);

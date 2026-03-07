@@ -14,7 +14,7 @@
       <div>
         <div class="badge">online gallery</div>
         <h1 class="title">Галерея Нины</h1>
-        <p class="subtitle">Клик — просмотр. ← → листают, Esc закрывает. Колесо мыши — зум.</p>
+        <p class="subtitle">Поиск и сортировка для быстрого выбора. Клик — просмотр. ← → листают, Esc закрывает.</p>
       </div>
       <div class="top__stats">
         <div class="stat">
@@ -26,6 +26,26 @@
   </header>
 
   <main class="wrap">
+    <section class="tools" aria-label="Инструменты галереи">
+      <label class="tools__group">
+        <span class="tools__label">Поиск</span>
+        <input id="searchInput" class="tools__input" type="search" placeholder="Например: 20240128 или 1540" autocomplete="off" />
+      </label>
+
+      <label class="tools__group">
+        <span class="tools__label">Сортировка</span>
+        <select id="sortSelect" class="tools__select">
+          <option value="new">Сначала новые</option>
+          <option value="old">Сначала старые</option>
+          <option value="name-asc">Имя A → Я</option>
+          <option value="name-desc">Имя Я → A</option>
+        </select>
+      </label>
+
+      <button id="clearBtn" class="tools__clear" type="button">Сбросить</button>
+      <div id="resultsInfo" class="tools__info" aria-live="polite"></div>
+    </section>
+
     <div id="status" class="status">Загружаю…</div>
     <div id="grid" class="grid" hidden></div>
   </main>
@@ -48,6 +68,7 @@
       <div class="viewer__meta">
         <div class="viewer__caption">
           <span id="viewerCount" class="viewer__count"></span>
+          <span id="viewerDate" class="viewer__date"></span>
           <span id="viewerCaption"></span>
         </div>
         <div class="viewer__hint">Свайпни влево/вправо на мобиле • Двойной клик — зум</div>
